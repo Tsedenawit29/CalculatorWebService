@@ -72,4 +72,84 @@ curl -s -X POST http://localhost:9090/calculator \
        </soapenv:Envelope>' | grep -o '<return>.*</return>'
 echo ""
 
+echo ""
+
+# Test 5: Power operation
+echo "Test 5: Power 2^8"
+curl -s -X POST http://localhost:9090/calculator \
+  -H "Content-Type: text/xml" \
+  -d '<?xml version="1.0" encoding="UTF-8"?>
+       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+                         xmlns:cal="http://calculator.com/">
+         <soapenv:Body>
+           <cal:power>
+             <base>2</base>
+             <exponent>8</exponent>
+           </cal:power>
+         </soapenv:Body>
+       </soapenv:Envelope>' | grep -o '<return>.*</return>'
+echo ""
+
+# Test 6: Square Root
+echo "Test 6: Square Root of 144"
+curl -s -X POST http://localhost:9090/calculator \
+  -H "Content-Type: text/xml" \
+  -d '<?xml version="1.0" encoding="UTF-8"?>
+       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+                         xmlns:cal="http://calculator.com/">
+         <soapenv:Body>
+           <cal:squareRoot>
+             <number>144</number>
+           </cal:squareRoot>
+         </soapenv:Body>
+       </soapenv:Envelope>' | grep -o '<return>.*</return>'
+echo ""
+
+# Test 7: Percentage
+echo "Test 7: 20% of 500"
+curl -s -X POST http://localhost:9090/calculator \
+  -H "Content-Type: text/xml" \
+  -d '<?xml version="1.0" encoding="UTF-8"?>
+       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+                         xmlns:cal="http://calculator.com/">
+         <soapenv:Body>
+           <cal:percentage>
+             <number>500</number>
+             <percent>20</percent>
+           </cal:percentage>
+         </soapenv:Body>
+       </soapenv:Envelope>' | grep -o '<return>.*</return>'
+echo ""
+
+# Test 8: Modulo
+echo "Test 8: Modulo 17 % 5"
+curl -s -X POST http://localhost:9090/calculator \
+  -H "Content-Type: text/xml" \
+  -d '<?xml version="1.0" encoding="UTF-8"?>
+       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+                         xmlns:cal="http://calculator.com/">
+         <soapenv:Body>
+           <cal:modulo>
+             <a>17</a>
+             <b>5</b>
+           </cal:modulo>
+         </soapenv:Body>
+       </soapenv:Envelope>' | grep -o '<return>.*</return>'
+echo ""
+
+# Test 9: Absolute value
+echo "Test 9: Absolute value of -42"
+curl -s -X POST http://localhost:9090/calculator \
+  -H "Content-Type: text/xml" \
+  -d '<?xml version="1.0" encoding="UTF-8"?>
+       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+                         xmlns:cal="http://calculator.com/">
+         <soapenv:Body>
+           <cal:absolute>
+             <number>-42</number>
+           </cal:absolute>
+         </soapenv:Body>
+       </soapenv:Envelope>' | grep -o '<return>.*</return>'
+echo ""
+
 echo "✅ All tests completed!"

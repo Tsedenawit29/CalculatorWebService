@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOAP Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator-container {
+            background: #000;
+            border-radius: 30px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+            padding: 25px;
+            max-width: 380
+            px;
+            width: 100%;
+            border: 1px solid #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 5px;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 20px;
+            font-size: 11px;
+        }
+
+        .display {
+            background: #1c1c1c;
+            border: 2px solid #2a2a2a;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            position: relative;
+        }
+
+        .result {
+            color: #fff;
+            font-size: 52px;
+            font-weight: 300;
+            text-align: right;
+            min-height: 60px;
+            word-wrap: break-word;
+            letter-spacing: -1px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="number"] {
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 100%;
+            background: #1c1c1c;
+            color: #fff;
+            text-align: center;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #505050;
+            background: #252525;
+        }
+
+        input[type="number"]::placeholder {
+            color: #666;
+        }
+
+        .operations {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        button {
+            padding: 22px;
+            font-size: 24px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.1s;
+            font-weight: 400;
+            aspect-ratio: 1;
+        }
+
+        button:active {
+            transform: scale(0.92);
+            filter: brightness(0.8);
+        }
+
+        .btn-number {
+            background: #333;
+            color: #fff;
+        }
+
+        .btn-number:hover {
+            background: #404040;
+        }
+
+        .btn-operator {
+            background: #ff9500;
+            color: #fff;
+            font-size: 32px;
+            font-weight: 300;
+        }
+
+        .btn-operator:hover {
+            background: #ffb143;
+        }
+
+        .btn-function {
+            background: #505050;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .btn-function:hover {
+            background: #606060;
+        }
+
+        .btn-clear {
+            background: #505050;
+            color: #fff;
+        }
+
+        .btn-clear:hover {
+            background: #606060;
+        }
+
+        .btn-equals {
+            background: #ff9500;
+            color: #fff;
+            font-size: 32px;
+            grid-column: span 2;
+            border-radius: 50px;
+        }
+
+        .btn-equals:hover {
+            background: #ffb143;
+        }
+
+        .btn-wide {
+            grid-column: span 2;
+            border-radius: 50px;
+        }
+
+        .error {
+            color: #ff3b30;
+            font-size: 18px;
+        }
+
+        .loading {
+            color: #ff9500;
+            font-style: italic;
+        }
+
+        .status {
+            text-align: center;
+            padding: 8px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 11px;
+        }
+
+        .status.connected {
+            background: #1c3a1c;
+            color: #4cd964;
+            border: 1px solid #2a4a2a;
+        }
+
+        .status.disconnected {
+            background: #3a1c1c;
+            color: #ff3b30;
+            border: 1px solid #4a2a2a;
+        }
+
+        label {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 5px;
+            display: block;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Calculator</h1>
+        <div class="display">
+            <div class="result" id="result">0</div>
+        </div>
+
+        <div class="input-group">
+            <div>
+                <label>A</label>
+                <input type="number" id="numA" placeholder="10" value="10">
+            </div>
+            <div>
+                <label>B</label>
+                <input type="number" id="numB" placeholder="5" value="5">
+            </div>
+        </div>
+
+        <!-- Calculator Grid -->
+        <div class="operations">
+            <button class="btn-clear" onclick="clearAll()">C</button>
+            <button class="btn-function" onclick="calculate('squareRoot')">√</button>
+            <button class="btn-function" onclick="calculate('power')">x^y</button>
+            <button class="btn-operator" onclick="calculate('divide')">÷</button>
+        </div>
+
+        <div class="operations">
+            <button class="btn-number" onclick="setNum(7)">7</button>
+            <button class="btn-number" onclick="setNum(8)">8</button>
+            <button class="btn-number" onclick="setNum(9)">9</button>
+            <button class="btn-operator" onclick="calculate('multiply')">×</button>
+        </div>
+
+        <div class="operations">
+            <button class="btn-number" onclick="setNum(4)">4</button>
+            <button class="btn-number" onclick="setNum(5)">5</button>
+            <button class="btn-number" onclick="setNum(6)">6</button>
+            <button class="btn-operator" onclick="calculate('subtract')">−</button>
+        </div>
+
+        <div class="operations">
+            <button class="btn-number" onclick="setNum(1)">1</button>
+            <button class="btn-number" onclick="setNum(2)">2</button>
+            <button class="btn-number" onclick="setNum(3)">3</button>
+            <button class="btn-operator" onclick="calculate('add')">+</button>
+        </div>
+
+        <div class="operations">
+            <button class="btn-function" onclick="calculate('percentage')">%</button>
+            <button class="btn-number" onclick="setNum(0)">0</button>
+            <button class="btn-function" onclick="calculate('absolute')">|x|</button>
+            <button class="btn-operator" onclick="calculate('modulo')">mod</button>
+        </div>
+
+        <div class="operations">
+            <button class="btn-equals" onclick="executeCalc()">=</button>
+        </div>
+    </div>
+
+    <div id="status"></div>
+
+    <script>
+        // Use relative URL to go through CORS proxy
+        const SOAP_URL = '/calculator';
+        let currentInput = 'A';
+        let pendingOperation = null;
+
+        function setNum(num) {
+            const input = document.getElementById(currentInput === 'A' ? 'numA' : 'numB');
+            const currentValue = input.value;
+            
+            if (currentValue === '0' || currentValue === '') {
+                input.value = num;
+            } else {
+                input.value = currentValue + num;
+            }
+        }
+
+        function executeCalc() {
+            if (pendingOperation) {
+                calculate(pendingOperation);
+                pendingOperation = null;
+            }
+        }
+
+        function createSOAPRequest(operation, params) {
+            let paramsXML = '';
+            
+            if (operation === 'squareRoot' || operation === 'absolute') {
+                paramsXML = `<number>${params.a}</number>`;
+            } else if (operation === 'power') {
+                paramsXML = `<base>${params.a}</base><exponent>${params.b}</exponent>`;
+            } else if (operation === 'percentage') {
+                paramsXML = `<number>${params.a}</number><percent>${params.b}</percent>`;
+            } else {
+                paramsXML = `<a>${params.a}</a><b>${params.b}</b>`;
+            }
+
+            return `<?xml version="1.0" encoding="UTF-8"?>
+                <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+                                  xmlns:cal="http://calculator.com/">
+                    <soapenv:Header/>
+                    <soapenv:Body>
+                        <cal:${operation}>
+                            ${paramsXML}
+                        </cal:${operation}>
+                    </soapenv:Body>
+                </soapenv:Envelope>`;
+        }
+
+        async function calculate(operation) {
+            const numA = parseFloat(document.getElementById('numA').value);
+            const numB = parseFloat(document.getElementById('numB').value);
+            const resultDiv = document.getElementById('result');
+            const statusDiv = document.getElementById('status');
+
+            // Validation
+            if (isNaN(numA)) {
+                resultDiv.innerHTML = '<span class="error">ERROR</span>';
+                return;
+            }
+
+            if (operation !== 'squareRoot' && operation !== 'absolute' && isNaN(numB)) {
+                resultDiv.innerHTML = '<span class="error">ERROR</span>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<span class="loading">...</span>';
+
+            try {
+                const soapRequest = createSOAPRequest(operation, { a: numA, b: numB });
+                
+                const response = await fetch(SOAP_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/xml',
+                    },
+                    body: soapRequest
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, 'text/xml');
+                
+                // Check for SOAP fault
+                const fault = xmlDoc.getElementsByTagName('faultstring')[0];
+                if (fault) {
+                    resultDiv.innerHTML = `<span class="error">ERROR</span>`;
+                    return;
+                }
+
+                const result = xmlDoc.getElementsByTagName('return')[0];
+                if (result) {
+                    const value = parseFloat(result.textContent);
+                    // Format display
+                    if (value % 1 === 0 && Math.abs(value) < 1e10) {
+                        resultDiv.textContent = value.toFixed(0);
+                    } else {
+                        resultDiv.textContent = value.toFixed(2);
+                    }
+                    statusDiv.className = 'status connected';
+                    statusDiv.textContent = '✅ CONNECTED';
+                } else {
+                    resultDiv.innerHTML = '<span class="error">ERROR</span>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">ERROR</span>`;
+                statusDiv.className = 'status disconnected';
+                statusDiv.textContent = '❌ DISCONNECTED';
+                console.error('SOAP Error:', error);
+            }
+        }
+
+        function clearAll() {
+            document.getElementById('numA').value = '0';
+            document.getElementById('numB').value = '0';
+            document.getElementById('result').textContent = '0';
+            currentInput = 'A';
+            pendingOperation = null;
+        }
+
+        // Test connection on load
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch(SOAP_URL + '?wsdl');
+                if (response.ok) {
+                    document.getElementById('status').className = 'status connected';
+                    document.getElementById('status').textContent = '✅ CONNECTED';
+                }
+            } catch (error) {
+                document.getElementById('status').className = 'status disconnected';
+                document.getElementById('status').textContent = '❌ DISCONNECTED';
+            }
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9') {
+                setNum(parseInt(e.key));
+            } else if (e.key === 'Enter') {
+                executeCalc();
+            } else if (e.key === 'Escape' || e.key === 'c' || e.key === 'C') {
+                clearAll();
+            }
+        });
+    </script>
+</body>
+</html>
