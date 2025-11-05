@@ -64,11 +64,13 @@ python3 cors-proxy.py
 Open http://localhost:8000/calculator.html
 
 **Features:**
-- ✅ Beautiful modern UI
-- ✅ All 9 operations (Basic + Advanced)
+- ✅ Sleek black & white design (like iPhone calculator)
+- ✅ Circular buttons with number pad (0-9)
+- ✅ All 9 operations accessible via buttons
 - ✅ Real-time SOAP communication
 - ✅ Connection status indicator
-- ✅ Error handling
+- ✅ Keyboard support (0-9, Enter, Escape)
+- ✅ Professional calculator layout
 
 ---
 

@@ -25,9 +25,8 @@
             background: #000;
             border-radius: 30px;
             box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
-            padding: 25px;
-            max-width: 380
-            px;
+            padding: 20px;
+            max-width: 320px;
             width: 100%;
             border: 1px solid #333;
         }
@@ -44,26 +43,26 @@
         .subtitle {
             text-align: center;
             color: #888;
-            margin-bottom: 20px;
-            font-size: 11px;
+            margin-bottom: 15px;
+            font-size: 10px;
         }
 
         .display {
             background: #1c1c1c;
             border: 2px solid #2a2a2a;
             border-radius: 15px;
-            padding: 25px 20px;
-            margin-bottom: 20px;
-            min-height: 100px;
+            padding: 20px 15px;
+            margin-bottom: 15px;
+            min-height: 80px;
             position: relative;
         }
 
         .result {
             color: #fff;
-            font-size: 52px;
+            font-size: 42px;
             font-weight: 300;
             text-align: right;
-            min-height: 60px;
+            min-height: 50px;
             word-wrap: break-word;
             letter-spacing: -1px;
         }
@@ -71,15 +70,15 @@
         .input-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         input[type="number"] {
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #333;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 15px;
             width: 100%;
             background: #1c1c1c;
             color: #fff;
@@ -99,13 +98,13 @@
         .operations {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         button {
-            padding: 22px;
-            font-size: 24px;
+            padding: 18px;
+            font-size: 20px;
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -131,8 +130,13 @@
         .btn-operator {
             background: #ff9500;
             color: #fff;
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 300;
+        }
+        
+        .btn-operator.mod {
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .btn-operator:hover {
@@ -142,7 +146,7 @@
         .btn-function {
             background: #505050;
             color: #fff;
-            font-size: 20px;
+            font-size: 16px;
         }
 
         .btn-function:hover {
@@ -161,7 +165,7 @@
         .btn-equals {
             background: #ff9500;
             color: #fff;
-            font-size: 32px;
+            font-size: 26px;
             grid-column: span 2;
             border-radius: 50px;
         }
@@ -267,15 +271,17 @@
             <button class="btn-function" onclick="calculate('percentage')">%</button>
             <button class="btn-number" onclick="setNum(0)">0</button>
             <button class="btn-function" onclick="calculate('absolute')">|x|</button>
-            <button class="btn-operator" onclick="calculate('modulo')">mod</button>
+            <button class="btn-operator mod" onclick="calculate('modulo')">mod</button>
         </div>
 
         <div class="operations">
             <button class="btn-equals" onclick="executeCalc()">=</button>
         </div>
-    </div>
 
-    <div id="status"></div>
+        <div class="status connected" id="status">
+            ✅ CONNECTED
+        </div>
+    </div>
 
     <script>
         // Use relative URL to go through CORS proxy
