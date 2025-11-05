@@ -13,274 +13,223 @@
 
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #1a1a1a;
+            background: #f6f7fb;
+            color: #1f2937;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 24px;
         }
 
         .calculator-container {
-            background: #000;
-            border-radius: 30px;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            max-width: 320px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+            padding: 24px;
             width: 100%;
-            border: 1px solid #333;
+            max-width: 560px;
+            border: 1px solid #e5e7eb;
         }
 
         h1 {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 5px;
-            font-size: 18px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
+            text-align: left;
+            color: #111827;
+            margin-bottom: 4px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
         }
 
         .subtitle {
-            text-align: center;
-            color: #888;
-            margin-bottom: 15px;
-            font-size: 10px;
+            text-align: left;
+            color: #6b7280;
+            margin-bottom: 16px;
+            font-size: 12px;
         }
 
         .display {
-            background: #1c1c1c;
-            border: 2px solid #2a2a2a;
-            border-radius: 15px;
-            padding: 20px 15px;
-            margin-bottom: 15px;
-            min-height: 80px;
-            position: relative;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px 14px;
+            margin-bottom: 16px;
+            min-height: 68px;
         }
 
         .result {
-            color: #fff;
-            font-size: 42px;
-            font-weight: 300;
+            color: #111827;
+            font-size: 36px;
+            font-weight: 500;
             text-align: right;
-            min-height: 50px;
+            min-height: 44px;
             word-wrap: break-word;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
         }
 
         .input-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .form-field label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 6px;
+            display: block;
+            text-transform: none;
+            letter-spacing: 0;
+            text-align: left;
         }
 
         input[type="number"] {
-            padding: 10px;
-            border: 1px solid #333;
-            border-radius: 8px;
-            font-size: 15px;
+            padding: 12px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 16px;
             width: 100%;
-            background: #1c1c1c;
-            color: #fff;
+            background: #ffffff;
+            color: #111827;
             text-align: center;
         }
 
         input[type="number"]:focus {
             outline: none;
-            border-color: #505050;
-            background: #252525;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
         }
 
         input[type="number"]::placeholder {
-            color: #666;
+            color: #9ca3af;
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .status {
+            padding: 8px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .status.connected {
+            background: #ecfdf5;
+            color: #047857;
+            border-color: #a7f3d0;
+        }
+
+        .status.disconnected {
+            background: #fef2f2;
+            color: #b91c1c;
+            border-color: #fecaca;
         }
 
         .operations {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 8px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
         }
 
         button {
-            padding: 18px;
-            font-size: 20px;
-            border: none;
-            border-radius: 50%;
+            padding: 12px 10px;
+            font-size: 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.1s;
-            font-weight: 400;
-            aspect-ratio: 1;
+            transition: background 0.12s ease, border-color 0.12s ease, transform 0.05s ease;
+            font-weight: 500;
+            background: #ffffff;
+            color: #111827;
+        }
+
+        button:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
         }
 
         button:active {
-            transform: scale(0.92);
-            filter: brightness(0.8);
+            transform: translateY(1px);
         }
 
-        .btn-number {
-            background: #333;
-            color: #fff;
+        .btn-primary {
+            background: #2563eb;
+            border-color: #1d4ed8;
+            color: #ffffff;
         }
 
-        .btn-number:hover {
-            background: #404040;
+        .btn-primary:hover {
+            background: #1d4ed8;
+            border-color: #1e40af;
         }
 
-        .btn-operator {
-            background: #ff9500;
-            color: #fff;
-            font-size: 26px;
-            font-weight: 300;
-        }
-        
-        .btn-operator.mod {
-            font-size: 14px;
-            font-weight: 500;
+        .btn-danger {
+            background: #ef4444;
+            border-color: #dc2626;
+            color: #ffffff;
         }
 
-        .btn-operator:hover {
-            background: #ffb143;
+        .btn-danger:hover {
+            background: #dc2626;
+            border-color: #b91c1c;
         }
 
-        .btn-function {
-            background: #505050;
-            color: #fff;
-            font-size: 16px;
+        .helper {
+            color: #6b7280;
+            font-size: 12px;
+            margin-top: 8px;
+            text-align: left;
         }
 
-        .btn-function:hover {
-            background: #606060;
-        }
-
-        .btn-clear {
-            background: #505050;
-            color: #fff;
-        }
-
-        .btn-clear:hover {
-            background: #606060;
-        }
-
-        .btn-equals {
-            background: #ff9500;
-            color: #fff;
-            font-size: 26px;
-            grid-column: span 2;
-            border-radius: 50px;
-        }
-
-        .btn-equals:hover {
-            background: #ffb143;
-        }
-
-        .btn-wide {
-            grid-column: span 2;
-            border-radius: 50px;
-        }
-
-        .error {
-            color: #ff3b30;
-            font-size: 18px;
-        }
-
-        .loading {
-            color: #ff9500;
-            font-style: italic;
-        }
-
-        .status {
-            text-align: center;
-            padding: 8px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-size: 11px;
-        }
-
-        .status.connected {
-            background: #1c3a1c;
-            color: #4cd964;
-            border: 1px solid #2a4a2a;
-        }
-
-        .status.disconnected {
-            background: #3a1c1c;
-            color: #ff3b30;
-            border: 1px solid #4a2a2a;
-        }
-
-        label {
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 5px;
-            display: block;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .error { color: #b91c1c; }
+        .loading { color: #2563eb; font-style: italic; }
     </style>
 </head>
 <body>
     <div class="calculator-container">
-        <h1>Calculator</h1>
+        <h1>Light Calculator</h1>
+        <div class="subtitle">SOAP-powered math. Simple, clean, fast.</div>
+
         <div class="display">
             <div class="result" id="result">0</div>
         </div>
 
+        <div class="toolbar">
+            <div class="status connected" id="status">✅ CONNECTED</div>
+            <button class="btn-danger" onclick="clearAll()">Clear</button>
+        </div>
+
         <div class="input-group">
-            <div>
-                <label>A</label>
+            <div class="form-field">
+                <label for="numA">Number A</label>
                 <input type="number" id="numA" placeholder="10" value="10">
             </div>
-            <div>
-                <label>B</label>
+            <div class="form-field">
+                <label for="numB">Number B</label>
                 <input type="number" id="numB" placeholder="5" value="5">
             </div>
         </div>
 
-        <!-- Calculator Grid -->
-        <div class="operations">
-            <button class="btn-clear" onclick="clearAll()">C</button>
-            <button class="btn-function" onclick="calculate('squareRoot')">√</button>
-            <button class="btn-function" onclick="calculate('power')">x^y</button>
-            <button class="btn-operator" onclick="calculate('divide')">÷</button>
+        <div class="operations" style="margin-top: 6px;">
+            <button onclick="calculate('add')">Add</button>
+            <button onclick="calculate('subtract')">Subtract</button>
+            <button onclick="calculate('multiply')">Multiply</button>
+            <button onclick="calculate('divide')">Divide</button>
+            <button onclick="calculate('modulo')">Modulo</button>
+            <button onclick="calculate('power')">Power</button>
+            <button onclick="calculate('squareRoot')">Square Root</button>
+            <button onclick="calculate('percentage')">Percentage</button>
+            <button onclick="calculate('absolute')">Absolute</button>
         </div>
 
-        <div class="operations">
-            <button class="btn-number" onclick="setNum(7)">7</button>
-            <button class="btn-number" onclick="setNum(8)">8</button>
-            <button class="btn-number" onclick="setNum(9)">9</button>
-            <button class="btn-operator" onclick="calculate('multiply')">×</button>
-        </div>
-
-        <div class="operations">
-            <button class="btn-number" onclick="setNum(4)">4</button>
-            <button class="btn-number" onclick="setNum(5)">5</button>
-            <button class="btn-number" onclick="setNum(6)">6</button>
-            <button class="btn-operator" onclick="calculate('subtract')">−</button>
-        </div>
-
-        <div class="operations">
-            <button class="btn-number" onclick="setNum(1)">1</button>
-            <button class="btn-number" onclick="setNum(2)">2</button>
-            <button class="btn-number" onclick="setNum(3)">3</button>
-            <button class="btn-operator" onclick="calculate('add')">+</button>
-        </div>
-
-        <div class="operations">
-            <button class="btn-function" onclick="calculate('percentage')">%</button>
-            <button class="btn-number" onclick="setNum(0)">0</button>
-            <button class="btn-function" onclick="calculate('absolute')">|x|</button>
-            <button class="btn-operator mod" onclick="calculate('modulo')">mod</button>
-        </div>
-
-        <div class="operations">
-            <button class="btn-equals" onclick="executeCalc()">=</button>
-        </div>
-
-        <div class="status connected" id="status">
-            ✅ CONNECTED
-        </div>
+        <div class="helper">Tip: Enter numbers, then click an operation. Square Root and Absolute use only A.</div>
     </div>
 
     <script>
